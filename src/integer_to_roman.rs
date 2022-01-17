@@ -15,12 +15,15 @@ pub(self) mod first_try {
 
             let (i, v, x) = Self::roman_by_cipher(cipher);
             let low_string = Self::digit_to_roman(low, i, v, x);
-            
+
             if high == 0 {
                 low_string
-            }
-            else {
-                format!("{}{}", Self::int_to_roman_recursive(high, cipher+1), low_string)
+            } else {
+                format!(
+                    "{}{}",
+                    Self::int_to_roman_recursive(high, cipher + 1),
+                    low_string
+                )
             }
         }
 
@@ -29,9 +32,15 @@ pub(self) mod first_try {
                 1 | 2 | 3 => std::iter::repeat(one).take(num as usize).collect(),
                 4 => format!("{}{}", one, five),
                 5 => format!("{}", five),
-                 6 | 7 | 8 => format!("{}{}", five, std::iter::repeat(one).take(num as usize - 5).collect::<String>()),
+                6 | 7 | 8 => format!(
+                    "{}{}",
+                    five,
+                    std::iter::repeat(one)
+                        .take(num as usize - 5)
+                        .collect::<String>()
+                ),
                 9 => format!("{}{}", one, ten),
-                _ => "".to_owned()
+                _ => "".to_owned(),
             }
         }
 
@@ -41,7 +50,7 @@ pub(self) mod first_try {
                 1 => ('X', 'L', 'C'),
                 2 => ('C', 'D', 'M'),
                 3 => ('M', '@', '#'),
-                _ => panic!("unsupported cipher")
+                _ => panic!("unsupported cipher"),
             }
         }
     }

@@ -10,7 +10,7 @@ pub(self) mod first_try {
     impl Solution {
         pub fn multiply(num1: String, num2: String) -> String {
             if num1 == "0" || num2 == "0" {
-                return "0".to_owned()
+                return "0".to_owned();
             }
 
             const MAX_SIZE: usize = 200 * 200;
@@ -63,24 +63,23 @@ pub(self) mod first_try {
     }
 }
 
-
 // second little-bit better solution
 pub(self) mod second_try {
-    use std::iter::Iterator;
     use std::char;
     use std::cmp::min;
+    use std::iter::Iterator;
 
     pub struct Solution;
     impl Solution {
         pub fn multiply(num1: String, num2: String) -> String {
             if num1 == "0" || num2 == "0" {
-                return "0".to_owned()
+                return "0".to_owned();
             }
 
             const MAX_SIZE: usize = 200 * 200;
             let mut ret = [0u8; MAX_SIZE];
             let mut begin = MAX_SIZE - 1;
-            
+
             for (j, jv) in num2.chars().rev().enumerate() {
                 for (i, iv) in num1.chars().rev().enumerate() {
                     let mulv = iv.to_digit(10).unwrap() * jv.to_digit(10).unwrap();
@@ -116,29 +115,28 @@ pub(self) mod second_try {
 
 // solution using iterator
 pub(self) mod third_try {
-    use std::iter::Iterator;
     use std::char;
     use std::cmp::min;
+    use std::iter::Iterator;
 
     pub struct Solution;
     impl Solution {
         pub fn multiply(num1: String, num2: String) -> String {
             if num1 == "0" || num2 == "0" {
-                return "0".to_owned()
+                return "0".to_owned();
             }
 
             const MAX_SIZE: usize = 200 * 200;
             let mut ret = [0u8; MAX_SIZE];
             let mut begin = MAX_SIZE - 1;
-            
+
             for (j, jv) in num2.chars().rev().enumerate() {
                 for (i, iv) in num1.chars().rev().enumerate() {
-
                     let multiplied = iv.to_digit(10).unwrap() * jv.to_digit(10).unwrap();
-                    let adder = Adder{
+                    let adder = Adder {
                         res: &mut ret,
                         pos: MAX_SIZE - (i + j) - 1,
-                        value: multiplied
+                        value: multiplied,
                     };
                     for pos in adder {
                         begin = min(begin, pos);
@@ -164,7 +162,7 @@ pub(self) mod third_try {
 
         fn next(&mut self) -> Option<Self::Item> {
             if self.value == 0 {
-                return None
+                return None;
             }
 
             let lowpart = self.res[self.pos] as u32 + (self.value % 10);
@@ -188,11 +186,29 @@ mod tests {
 
     #[test]
     fn example() {
-        assert_eq!(Solution::multiply("0".to_owned(), "0".to_owned()), "0".to_owned());
-        assert_eq!(Solution::multiply("2".to_owned(), "0".to_owned()), "0".to_owned());
-        assert_eq!(Solution::multiply("0".to_owned(), "3".to_owned()), "0".to_owned());
-        assert_eq!(Solution::multiply("2".to_owned(), "3".to_owned()), "6".to_owned());
-        assert_eq!(Solution::multiply("123".to_owned(), "456".to_owned()), "56088".to_owned());
-        assert_eq!(Solution::multiply("57986882437".to_owned(), "24378".to_owned()), "1413604220049186".to_owned());
+        assert_eq!(
+            Solution::multiply("0".to_owned(), "0".to_owned()),
+            "0".to_owned()
+        );
+        assert_eq!(
+            Solution::multiply("2".to_owned(), "0".to_owned()),
+            "0".to_owned()
+        );
+        assert_eq!(
+            Solution::multiply("0".to_owned(), "3".to_owned()),
+            "0".to_owned()
+        );
+        assert_eq!(
+            Solution::multiply("2".to_owned(), "3".to_owned()),
+            "6".to_owned()
+        );
+        assert_eq!(
+            Solution::multiply("123".to_owned(), "456".to_owned()),
+            "56088".to_owned()
+        );
+        assert_eq!(
+            Solution::multiply("57986882437".to_owned(), "24378".to_owned()),
+            "1413604220049186".to_owned()
+        );
     }
 }

@@ -5,16 +5,13 @@
 #[derive(PartialEq, Eq, Clone, Debug)]
 pub struct ListNode {
     pub val: i32,
-    pub next: Option<Box<ListNode>>
+    pub next: Option<Box<ListNode>>,
 }
 
 impl ListNode {
     #[inline]
     pub fn new(val: i32) -> Self {
-        ListNode {
-            next: None,
-            val
-        }
+        ListNode { next: None, val }
     }
 
     pub fn generate(nums: Vec<i32>) -> Option<Box<ListNode>> {
@@ -39,12 +36,12 @@ pub(self) mod first_try {
     impl Solution {
         fn rec(prev_val: i32, cur: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
             if cur.is_none() {
-                return None
+                return None;
             }
 
             let mut cur = cur.unwrap();
             if prev_val == cur.val {
-                return Self::rec(prev_val, cur.next)
+                return Self::rec(prev_val, cur.next);
             }
 
             cur.next = Self::rec(cur.val, cur.next);
@@ -53,7 +50,7 @@ pub(self) mod first_try {
 
         pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
             if head.is_none() {
-                return None
+                return None;
             }
 
             let mut head = head.unwrap();
@@ -70,18 +67,18 @@ pub(self) mod second_try {
     impl Solution {
         pub fn delete_duplicates(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
             if head.is_none() {
-                return None
+                return None;
             }
 
             let mut head = head;
-            
+
             let mut prev = head.as_mut();
             while let Some(p) = prev {
                 if let Some(cur) = p.next.as_mut() {
                     if p.val == cur.val {
                         p.next = cur.next.take();
                         prev = Some(p);
-                        continue
+                        continue;
                     }
                 }
 
@@ -100,20 +97,50 @@ mod tests {
     #[test]
     fn example_first_try() {
         use crate::remove_duplicates_from_sorted_list::first_try::Solution;
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![])), ListNode::generate(vec![]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1])), ListNode::generate(vec![1]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 1])), ListNode::generate(vec![1]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2])), ListNode::generate(vec![1, 2]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2, 3, 3])), ListNode::generate(vec![1, 2, 3]));
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![])),
+            ListNode::generate(vec![])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1])),
+            ListNode::generate(vec![1])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 1])),
+            ListNode::generate(vec![1])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2])),
+            ListNode::generate(vec![1, 2])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2, 3, 3])),
+            ListNode::generate(vec![1, 2, 3])
+        );
     }
 
     #[test]
     fn example_second_try() {
         use crate::remove_duplicates_from_sorted_list::second_try::Solution;
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![])), ListNode::generate(vec![]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1])), ListNode::generate(vec![1]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 1])), ListNode::generate(vec![1]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2])), ListNode::generate(vec![1, 2]));
-        assert_eq!(Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2, 3, 3])), ListNode::generate(vec![1, 2, 3]));
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![])),
+            ListNode::generate(vec![])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1])),
+            ListNode::generate(vec![1])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 1])),
+            ListNode::generate(vec![1])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2])),
+            ListNode::generate(vec![1, 2])
+        );
+        assert_eq!(
+            Solution::delete_duplicates(ListNode::generate(vec![1, 1, 2, 3, 3])),
+            ListNode::generate(vec![1, 2, 3])
+        );
     }
 }

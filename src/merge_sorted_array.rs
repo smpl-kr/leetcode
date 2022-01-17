@@ -13,7 +13,7 @@ pub(self) mod first_try {
 
                 if ni < 0 {
                     //println!("break1");
-                    return
+                    return;
                 }
 
                 if mi < 0 {
@@ -21,18 +21,18 @@ pub(self) mod first_try {
                         nums1[i] = *v;
                     }
                     //println!("break2");
-                    return
+                    return;
                 }
 
                 match nums1[mi as usize].cmp(&nums2[ni as usize]) {
                     Ordering::Less => {
                         nums1[mr] = nums2[ni as usize];
                         ni -= 1;
-                    },
+                    }
                     Ordering::Equal => {
                         nums1[mr] = nums1[mi as usize];
                         mi -= 1;
-                    },
+                    }
                     Ordering::Greater => {
                         nums1[mr] = nums1[mi as usize];
                         mi -= 1;
@@ -82,7 +82,7 @@ mod tests {
         assert_eq!(nums1, [1]);
     }
 
-   #[test]
+    #[test]
     fn example4() {
         let mut nums1 = vec![1, 2, 4, 0, 0, 0];
         let m = 3;
@@ -102,10 +102,9 @@ mod tests {
 
         Solution::merge(&mut nums1, m, &mut nums2, n);
         assert_eq!(nums1, [1, 2, 3, 4, 5, 6]);
-        //nums1 1 
+        //nums1 1
         //nums2 4
-        //mi 1 
-        //ni 0 
+        //mi 1
+        //ni 0
     }
-
 }

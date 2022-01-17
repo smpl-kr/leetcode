@@ -19,33 +19,34 @@ pub(self) mod first_try {
                 if c == ' ' {
                     match state {
                         State::LeadingSpaces => (),
-                        _ => break
+                        _ => break,
                     }
-                }
-                else if c == '-' || c == '+' {
+                } else if c == '-' || c == '+' {
                     match state {
                         State::LeadingSpaces => {
                             positive = c == '+';
                             state = State::PosOrNeg;
-                        },
-                        _ => break
+                        }
+                        _ => break,
                     }
-                }
-                else if let Some(n) = c.to_digit(10) {
+                } else if let Some(n) = c.to_digit(10) {
                     match state {
                         State::LeadingSpaces | State::PosOrNeg | State::Numbers => {
                             number = std::cmp::min(
                                 number * 10 + n as i64,
-                                if positive { i32::MAX as i64 } else { -1 * i32::MIN as i64 }
+                                if positive {
+                                    i32::MAX as i64
+                                } else {
+                                    -1 * i32::MIN as i64
+                                },
                             );
                             state = State::Numbers;
-                        },
+                        }
                     }
+                } else {
+                    break;
                 }
-                else {
-                    break
-                }
-           }
+            }
 
             let number = if positive { number } else { -number };
             number as i32
@@ -62,14 +63,17 @@ mod tests {
         assert_eq!(Solution::my_atoi("42".to_owned()), 42);
         assert_eq!(Solution::my_atoi("   -42".to_owned()), -42);
         assert_eq!(Solution::my_atoi("4193 with words".to_owned()), 4193);
-        assert_eq!(Solution::my_atoi("+-42".to_owned()), 0);    // assumes
+        assert_eq!(Solution::my_atoi("+-42".to_owned()), 0); // assumes
         assert_eq!(Solution::my_atoi("-2147483647".to_owned()), -2147483647);
         assert_eq!(Solution::my_atoi("-2147483648".to_owned()), -2147483648);
         assert_eq!(Solution::my_atoi("-2147483649".to_owned()), -2147483648);
         assert_eq!(Solution::my_atoi("2147483646".to_owned()), 2147483646);
         assert_eq!(Solution::my_atoi("2147483647".to_owned()), 2147483647);
         assert_eq!(Solution::my_atoi("2147483648".to_owned()), 2147483647);
-        assert_eq!(Solution::my_atoi("9223372036854775808".to_owned()), 2147483647);
+        assert_eq!(
+            Solution::my_atoi("9223372036854775808".to_owned()),
+            2147483647
+        );
         assert_eq!(Solution::my_atoi("".to_owned()), 0);
         assert_eq!(Solution::my_atoi("-".to_owned()), 0);
         assert_eq!(Solution::my_atoi("+".to_owned()), 0);
