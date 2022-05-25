@@ -5,3 +5,4 @@ pub mod merge_sorted_array;
 pub mod multiply_strings;
 pub mod remove_duplicates_from_sorted_list;
 pub mod string_to_integer;
+pub mod positions_of_large_groups;
