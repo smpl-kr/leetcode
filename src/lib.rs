@@ -7,3 +7,4 @@ pub mod remove_duplicates_from_sorted_list;
 pub mod string_to_integer;
 pub mod positions_of_large_groups;
 pub mod top_k_frequent_elements;
+pub mod reaching_points;
