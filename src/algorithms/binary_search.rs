@@ -95,5 +95,12 @@ mod tests {
         assert_eq!(binary_search_upper(&v, 10), 0);
         assert_eq!(binary_search_upper(&v, 55), 3);
         assert_eq!(binary_search_upper(&v, 200), 8);
+
+        for (i, &n) in v.iter().enumerate() {
+            assert_eq!(v.binary_search(&n), Ok(i));
+        }
+        assert_eq!(v.binary_search(&10), Err(0));
+        assert_eq!(v.binary_search(&55), Err(3));
+        assert_eq!(v.binary_search(&200), Err(8));
     }
 }
