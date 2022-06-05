@@ -2,7 +2,7 @@
 // https://leetcode.com/problems/reaching-points/
 // Solved. Discuss를 좀 컨닝함...
 
-mod first_try {
+pub(self) mod first_try {
     pub struct Solution;
     impl Solution {
         pub fn reaching_points(sx: i32, sy: i32, tx: i32, ty: i32) -> bool {

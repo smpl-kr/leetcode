@@ -8,3 +8,6 @@ pub mod string_to_integer;
 pub mod positions_of_large_groups;
 pub mod top_k_frequent_elements;
 pub mod reaching_points;
+pub mod minimum_changes_to_make_alternating_binary_string;
+pub mod closest_divisors;
+pub mod minimum_space_wasted_from_packaging;
