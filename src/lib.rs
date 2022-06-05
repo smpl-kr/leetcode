@@ -1,3 +1,5 @@
+pub mod algorithms;
+
 pub mod integer_to_roman;
 pub mod longest_substring_without_repeating_characters;
 pub mod maximum_subarray;
