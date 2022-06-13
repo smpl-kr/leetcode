@@ -13,3 +13,6 @@ pub mod reaching_points;
 pub mod minimum_changes_to_make_alternating_binary_string;
 pub mod closest_divisors;
 pub mod minimum_space_wasted_from_packaging;
+pub mod move_zeroes;
+pub mod maximum_number_of_occurrences_of_a_substring;
+pub mod maximum_students_taking_exam;
